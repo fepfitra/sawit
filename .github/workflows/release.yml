@@ -56,12 +56,19 @@ jobs:
         if [ "${{ matrix.os }}" = "windows-latest" ]; then
           cp "target/$TARGET_NAME/release/sawit.exe" "$staging/"
           cp "target/$TARGET_NAME/release/saw.exe" "$staging/"
-          7z a "$staging.zip" "$staging"
+          # Zip with flat structure (no top-level folder)
+          cd "$staging"
+          7z a "../$staging.zip" *
         else
           cp "target/$TARGET_NAME/release/sawit" "$staging/"
           cp "target/$TARGET_NAME/release/saw" "$staging/"
-          zip -r "$staging.zip" "$staging"
+          # Zip with flat structure (no top-level folder)
+          cd "$staging"
+          zip -r "../$staging.zip" *
         fi
+        
+        # Go back to root
+        cd ..
     
     - name: Release
       uses: softprops/action-gh-release@v2
