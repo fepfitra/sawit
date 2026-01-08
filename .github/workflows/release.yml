@@ -45,7 +45,8 @@ jobs:
         # Extract version from tag
         VERSION=${GITHUB_REF_NAME#v}
         echo "Syncing Cargo.toml to version $VERSION"
-        sed -i "s/^version = ".*"/version = \"$VERSION\"/" Cargo.toml
+        # Portable sed: use -i.bak to satisfy BSD sed (macOS), then remove backup
+        sed -i.bak "s/^version = \".*\"/version = \"$VERSION\"/" Cargo.toml && rm Cargo.toml.bak
         # No need to commit here, just build with the modified file
 
     - name: Build
