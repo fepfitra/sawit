@@ -1,6 +1,6 @@
 # sawit (saw)
 
-A simple, lightweight CLI tool written in Rust that watches for file changes in a directory and executes a specified command.
+A simple, lightweight CLI tool that watches for file changes in a directory and executes a specified command.
 
 ## Philosophy
 
